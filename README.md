@@ -72,14 +72,53 @@ https://engineeringxpert.com/wp-content/uploads/2022/04/26.png
 
 
 ## STM 32 CUBE PROGRAM :
+```
+Developed by:Preethi.A.A
+Reference number:212222110035
+
+#include "main.h"
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+
+int main(void)
+{
+    HAL_Init();
+  SystemClock_Config();
+
+  MX_GPIO_Init();
+ 
+  while (1)
+  {
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
+      HAL_Delay(500);
+      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
+      HAL_Delay(500); 
+  }
+}
+
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
 
 
-
-
+void Error_Handler(void)
+{
+  __disable_irq();
+  while (1)
+  {
+  }
+}
+```
 ## Output screen shots of proteus  :
+## LED OFF:
+
+![led off](https://user-images.githubusercontent.com/120115840/234186444-4494c186-d7ef-4219-8f74-03de2f27e996.png)
+
+ ## LED ON:
  
- 
- 
+![led on](https://user-images.githubusercontent.com/120115840/234186981-cee507ac-bc24-4efe-bfdd-366a67bce736.png)
  
 ## Result :
 Interfacing a digital output and digital input  with ARM microcontroller are simulated in proteus and the results are verified.
