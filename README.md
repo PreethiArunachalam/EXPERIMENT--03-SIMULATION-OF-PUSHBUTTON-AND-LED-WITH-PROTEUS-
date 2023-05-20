@@ -76,25 +76,67 @@ https://engineeringxpert.com/wp-content/uploads/2022/04/26.png
 Developed by:Preethi.A.A
 Reference number:212222110035
 
-#include "main.h"
+#include"main.h"
+#include"stdio.h"
+#include"stdbool.h"
+bool pushbutton;
+
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 
 int main(void)
 {
-    HAL_Init();
+
+  HAL_Init();
+
   SystemClock_Config();
 
   MX_GPIO_Init();
- 
+  
   while (1)
   {
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
-      HAL_Delay(500);
-      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
-      HAL_Delay(500); 
+	  pushbutton =  HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_3);
+	  	  if(pushbutton==0)
+	  	  {
+	  			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
+	  			  HAL_Delay(500);
+	  			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
+	  			  HAL_Delay(500);
+
+	  	  }
+	  	  else
+	  	  {
+	  		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
+	  	  }
   }
+
 }
+
+
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
+  
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
   {
@@ -103,22 +145,48 @@ int main(void)
 }
 
 
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
+
+  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = GPIO_PIN_3;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+}
+
+
 void Error_Handler(void)
 {
+  
   __disable_irq();
   while (1)
   {
   }
+  
 }
+
 ```
 ## Output screen shots of proteus  :
 ## LED OFF:
 
-![led off](https://user-images.githubusercontent.com/120115840/234186444-4494c186-d7ef-4219-8f74-03de2f27e996.png)
+![image](https://github.com/PreethiArunachalam/EXPERIMENT--03-SIMULATION-OF-PUSHBUTTON-AND-LED-WITH-PROTEUS-/assets/120115840/4a8d96b5-ec56-4a45-a840-2c6bdf9b9d0e)
 
  ## LED ON:
  
-![led on](https://user-images.githubusercontent.com/120115840/234186981-cee507ac-bc24-4efe-bfdd-366a67bce736.png)
+![image](https://github.com/PreethiArunachalam/EXPERIMENT--03-SIMULATION-OF-PUSHBUTTON-AND-LED-WITH-PROTEUS-/assets/120115840/a5299c55-c9bd-48d9-8ca7-e917016a3e2b)
  
 ## Result :
 Interfacing a digital output and digital input  with ARM microcontroller are simulated in proteus and the results are verified.
