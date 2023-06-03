@@ -188,6 +188,10 @@ void Error_Handler(void)
  
 ![image](https://github.com/PreethiArunachalam/EXPERIMENT--03-SIMULATION-OF-PUSHBUTTON-AND-LED-WITH-PROTEUS-/assets/120115840/a5299c55-c9bd-48d9-8ca7-e917016a3e2b)
  
+ ## Proteus Layout:
+ 
+ ![image](https://github.com/PreethiArunachalam/EXPERIMENT--03-SIMULATION-OF-PUSHBUTTON-AND-LED-WITH-PROTEUS-/assets/120115840/5d426864-59db-4df3-a46a-2b214895f903)
+
 ## Result :
 Interfacing a digital output and digital input  with ARM microcontroller are simulated in proteus and the results are verified.
 
